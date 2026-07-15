@@ -191,6 +191,8 @@ function initAccordions() {
     items.forEach(item => {
       const head = item.querySelector('.acc-head');
       const body = item.querySelector('.acc-body');
+      // expand any item pre-marked open on load
+      if (item.classList.contains('open') && body) body.style.maxHeight = body.scrollHeight + 'px';
       head.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
         // only one open at a time within a group
