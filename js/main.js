@@ -26,6 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordions();
   initBackToTop();
   initContactForm();
+  initTeamSlider();
+  initTeamShare();
+  initClientStories(prefersReduced);
+  initBlog();
+  initNewsletterForm();
   setYear();
 });
 
@@ -282,6 +287,174 @@ function initContactForm() {
 
   form.querySelectorAll('[data-required]').forEach(f => {
     f.addEventListener('blur', () => validate());
+  });
+}
+
+/* ---------- Team slider ---------- */
+function initTeamSlider() {
+  const track = document.getElementById('teamTrack');
+  if (!track) return;
+  const total = track.children.length;
+  let idx = 0;
+  const perView = () => (window.innerWidth >= 1024 ? 4 : window.innerWidth >= 640 ? 2 : 1);
+  const go = (n) => {
+    const pv = perView();
+    const max = Math.max(0, total - pv);
+    idx = Math.min(Math.max(n, 0), max);
+    track.style.transform = `translateX(-${idx * (100 / pv)}%)`;
+  };
+  document.getElementById('teamNext')?.addEventListener('click', () => {
+    const pv = perView();
+    go(idx + 1 > total - pv ? 0 : idx + 1);
+  });
+  document.getElementById('teamPrev')?.addEventListener('click', () => go(idx - 1));
+  window.addEventListener('resize', () => go(idx));
+  go(0);
+}
+
+/* ---------- Team share expand (tap support) ---------- */
+function initTeamShare() {
+  document.querySelectorAll('.team-share-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const share = btn.closest('.team-share');
+      const isOpen = share.classList.contains('open');
+      document.querySelectorAll('.team-share.open').forEach(s => s.classList.remove('open'));
+      if (!isOpen) share.classList.add('open');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.team-share')) {
+      document.querySelectorAll('.team-share.open').forEach(s => s.classList.remove('open'));
+    }
+  });
+}
+
+/* ---------- Client stories rotator ---------- */
+function initClientStories(prefersReduced) {
+  const section = document.getElementById('clientStories');
+  if (!section) return;
+  const stories = [
+    {
+      photo: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80',
+      quote: '"They handled my family\'s immigration paperwork with so much patience and care. Everything was explained in Kreyòl and I never felt lost. We are forever grateful to the PLS Team."',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+      name: 'Marie L.', role: 'Immigration Client'
+    },
+    {
+      photo: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      quote: '"We bought our first home in Jacksonville with PLS guiding every step. They negotiated hard for us and made a stressful process feel calm and clear. We could not recommend them more."',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      name: 'David R.', role: 'Real Estate Client'
+    },
+    {
+      photo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80',
+      quote: '"My taxes were always confusing until I found PLS. They found deductions I never knew about and filed everything on time. Honest, professional and truly caring people."',
+      avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&q=80',
+      name: 'Sandra P.', role: 'Tax Client'
+    }
+  ];
+  const photo = document.getElementById('storyPhoto');
+  const quote = document.getElementById('storyQuote');
+  const avatar = document.getElementById('storyAvatar');
+  const name = document.getElementById('storyName');
+  const role = document.getElementById('storyRole');
+  const left = document.getElementById('storyLeft');
+  const right = document.getElementById('storyRight');
+  const dashes = Array.from(document.querySelectorAll('#storyDashes .story-dash'));
+  let idx = 0, timer = null;
+
+  const render = (n) => {
+    idx = (n + stories.length) % stories.length;
+    const s = stories[idx];
+    left.classList.add('out'); right.classList.add('out');
+    setTimeout(() => {
+      photo.src = s.photo;
+      quote.textContent = s.quote;
+      avatar.src = s.avatar;
+      name.textContent = s.name;
+      role.textContent = s.role;
+      left.classList.remove('out'); right.classList.remove('out');
+    }, prefersReduced ? 0 : 250);
+    dashes.forEach((d, i) => d.classList.toggle('active', i === idx));
+  };
+  dashes.forEach(d => d.addEventListener('click', () => { render(parseInt(d.dataset.index, 10)); reset(); }));
+  const start = () => { if (!prefersReduced) timer = setInterval(() => render(idx + 1), 7000); };
+  const reset = () => { clearInterval(timer); start(); };
+  section.addEventListener('mouseenter', () => clearInterval(timer));
+  section.addEventListener('mouseleave', start);
+  render(0); start();
+}
+
+/* ---------- Blog search + category filter ---------- */
+function initBlog() {
+  const cards = document.querySelectorAll('.post-card');
+  if (!cards.length) return;
+  const searchForm = document.getElementById('blogSearchForm');
+  const search = document.getElementById('blogSearch');
+  const catLinks = document.querySelectorAll('[data-cat]');
+  const empty = document.getElementById('blogEmpty');
+  let activeCat = 'all';
+
+  const apply = () => {
+    const q = (search?.value || '').trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(c => {
+      const title = (c.dataset.title || '').toLowerCase();
+      const cat = (c.dataset.category || '').toLowerCase();
+      const match = (!q || title.includes(q)) && (activeCat === 'all' || cat === activeCat);
+      c.classList.toggle('hidden', !match);
+      if (match) shown++;
+    });
+    if (empty) empty.classList.toggle('hidden', shown !== 0);
+  };
+
+  search?.addEventListener('input', apply);
+  searchForm?.addEventListener('submit', (e) => { e.preventDefault(); apply(); });
+  catLinks.forEach(l => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    activeCat = (l.dataset.cat || 'all').toLowerCase();
+    catLinks.forEach(x => x.classList.remove('text-gold-500', 'font-bold'));
+    l.classList.add('text-gold-500', 'font-bold');
+    apply();
+  }));
+}
+
+/* ---------- Newsletter form (Web3Forms) ---------- */
+function initNewsletterForm() {
+  const form = document.getElementById('newsletterForm');
+  if (!form) return;
+  const keyField = form.querySelector('input[name="access_key"]');
+  if (keyField) keyField.value = WEB3FORMS_ACCESS_KEY;
+  const status = document.getElementById('newsletterStatus');
+  const email = form.querySelector('input[name="email"]');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.querySelector('input[name="botcheck"]').checked) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      status.textContent = 'Please enter a valid email.';
+      status.className = 'mt-2 text-xs text-red-400';
+      return;
+    }
+    status.textContent = 'Subscribing…';
+    status.className = 'mt-2 text-xs text-gray-dark';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      });
+      const data = await res.json();
+      if (data.success) {
+        form.reset();
+        status.textContent = '✓ You\'re subscribed. Thank you!';
+        status.className = 'mt-2 text-xs font-semibold text-gold-400';
+      } else { throw new Error(); }
+    } catch (err) {
+      status.textContent = 'Something went wrong. Please try again.';
+      status.className = 'mt-2 text-xs text-red-400';
+    }
   });
 }
 
