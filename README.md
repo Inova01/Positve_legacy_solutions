@@ -14,23 +14,29 @@ Pure **HTML + Tailwind CSS (CDN) + vanilla JavaScript** — no build step, no fr
 
 ```
 pls-website/
-├── index.html          # Home
+├── index.html          # Home (hero, services, process, team, client stories, blog preview)
 ├── about.html          # About / team / values
 ├── insurance.html      # Service detail
 ├── real-estate.html    # Service detail
 ├── tax-services.html   # Service detail
 ├── immigration.html    # Service detail (includes non-attorney disclaimer)
+├── blog.html           # Blog listing (search + category filter, sidebar, pagination)
+├── blog-single.html    # Full article + sidebar + prev/next + author box
 ├── faq.html            # FAQ grouped by service
-├── contact.html        # Contact info, Google Map, Web3Forms form
+├── contact.html        # 3 numbered info cards, Google Map, Web3Forms form
 ├── css/custom.css      # Color palette (CSS vars) + all animations/overrides
-├── js/main.js          # All behavior (nav, slider, counters, form, etc.)
+├── js/main.js          # All behavior (nav, sliders, counters, forms, blog filter, etc.)
 ├── favicon.svg         # "PLS" monogram with gold arrow motif
 ├── _headers            # Cloudflare Pages security + cache headers
 └── README.md
 ```
 
-The **header and footer markup is byte-identical across every page** (verified via
-checksum). Propagate nav changes to all pages at once with your Python script.
+**10 pages total.** The **header and footer markup is byte-identical across every page**
+(verified via MD5 checksum). To change the nav/footer, edit it once in `index.html`,
+then run your propagation script (a temporary `propagate.py` was used during the build:
+it extracts the blocks between the `HEADER`/`END HEADER` and `FOOTER`/`END FOOTER`
+marker comments in `index.html` and injects them into every other page). Every page
+keeps those four marker comments so the blocks can be re-propagated any time.
 
 ---
 
@@ -51,15 +57,23 @@ Defined as CSS variables in `:root` (`css/custom.css`):
 
 ---
 
-## ⚠️ Three placeholders to replace before launch
+## ⚠️ Placeholders to replace before launch
 
 1. **Web3Forms access key** — get a free key at <https://web3forms.com>, then set
-   `WEB3FORMS_ACCESS_KEY` at the top of `js/main.js` (it auto-fills the form's hidden
-   `access_key` input; the literal in `contact.html` is a fallback).
+   `WEB3FORMS_ACCESS_KEY` at the top of `js/main.js`. It auto-fills the hidden
+   `access_key` input on **both** the contact form and the footer newsletter form (the
+   literal `YOUR_WEB3FORMS_ACCESS_KEY` in the markup is only a fallback).
 2. **Email address** — replace `positivelegacysolutions@gmail.com` sitewide
    (`grep -r positivelegacysolutions@gmail.com`).
-3. **Owner name** — set `OWNER_NAME` in `js/main.js` and re-run the page generator, or
-   search-replace `Etienne` in `about.html`. (Copy currently uses "The PLS Team".)
+3. **Owner name** — set `OWNER_NAME` in `js/main.js`, or search-replace `Etienne` in
+   `about.html`. (Body copy otherwise uses "The PLS Team".)
+4. **Social media URLs** — replace the `#` placeholders on the footer social buttons
+   (Facebook, Instagram, WhatsApp, X) and the team-card / blog share icons.
+5. **Download files** — add real `PLS Services Brochure.pdf` (≈78 KB) and
+   `New Client Checklist.pdf` (≈58 KB) and point the blog sidebar "Downloads" `#` links
+   at them.
+6. **Privacy Policy** — the footer "Privacy Policy" link is a `#` placeholder; add a
+   `privacy.html` page (or external URL) when ready.
 
 ---
 
