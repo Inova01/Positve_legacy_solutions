@@ -28,3 +28,30 @@ export type CmsDocument = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type ClientStatus = "new" | "contacted" | "active" | "closed";
+
+export type ClientRecord = {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  service: string;
+  source: string;
+  status: ClientStatus;
+  notes: string;
+  messageCount: number;
+  lastMessageAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ClientMessage = {
+  id: string;
+  clientId: string;
+  subject: string;
+  body: string;
+  channel: "email";
+  status: "prepared";
+  createdAt: string;
+};

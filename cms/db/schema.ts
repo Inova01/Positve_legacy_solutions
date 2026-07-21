@@ -29,3 +29,26 @@ export const documents = sqliteTable("documents", {
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
+
+export const clients = sqliteTable("clients", {
+  id: text("id").primaryKey(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull().default(""),
+  service: text("service").notNull().default("General inquiry"),
+  source: text("source").notNull().default("Manual entry"),
+  status: text("status").notNull().default("new"),
+  notes: text("notes").notNull().default(""),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const clientMessages = sqliteTable("client_messages", {
+  id: text("id").primaryKey(),
+  clientId: text("client_id").notNull().references(() => clients.id),
+  subject: text("subject").notNull(),
+  body: text("body").notNull(),
+  channel: text("channel").notNull().default("email"),
+  status: text("status").notNull().default("prepared"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});

@@ -60,5 +60,36 @@ async function initializeSchema(database: D1Database): Promise<void> {
     database.prepare(
       "CREATE INDEX IF NOT EXISTS documents_status_created_idx ON documents(status, created_at DESC)",
     ),
+    database.prepare(`CREATE TABLE IF NOT EXISTS clients (
+      id TEXT PRIMARY KEY,
+      full_name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT NOT NULL DEFAULT '',
+      service TEXT NOT NULL DEFAULT 'General inquiry',
+      source TEXT NOT NULL DEFAULT 'Manual entry',
+      status TEXT NOT NULL DEFAULT 'new',
+      notes TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )`),
+    database.prepare(
+      "CREATE INDEX IF NOT EXISTS clients_status_created_idx ON clients(status, created_at DESC)",
+    ),
+    database.prepare(
+      "CREATE INDEX IF NOT EXISTS clients_email_idx ON clients(email)",
+    ),
+    database.prepare(`CREATE TABLE IF NOT EXISTS client_messages (
+      id TEXT PRIMARY KEY,
+      client_id TEXT NOT NULL,
+      subject TEXT NOT NULL,
+      body TEXT NOT NULL,
+      channel TEXT NOT NULL DEFAULT 'email',
+      status TEXT NOT NULL DEFAULT 'prepared',
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
+    )`),
+    database.prepare(
+      "CREATE INDEX IF NOT EXISTS client_messages_client_created_idx ON client_messages(client_id, created_at DESC)",
+    ),
   ]);
 }

@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { BlogPost, CmsDocument, PostStatus } from "../cms-types";
+import { ClientsPanel } from "./ClientsPanel";
 
-type View = "overview" | "posts" | "documents";
+type View = "overview" | "posts" | "documents" | "clients";
 type User = { name: string; email: string };
 type PostDraft = {
   id?: string;
@@ -125,7 +126,8 @@ export function DashboardClient({
   }, [notify]);
 
   useEffect(() => {
-    void loadContent();
+    const timer = window.setTimeout(() => void loadContent(), 0);
+    return () => window.clearTimeout(timer);
   }, [loadContent]);
 
   const filteredPosts = useMemo(() => {
@@ -331,6 +333,13 @@ export function DashboardClient({
           >
             <span className="nav-index">03</span> PDF library
           </button>
+          <button
+            type="button"
+            className={view === "clients" ? "active" : ""}
+            onClick={() => changeView("clients")}
+          >
+            <span className="nav-index">04</span> Clients
+          </button>
         </nav>
 
         <div className="sidebar-footer">
@@ -350,7 +359,9 @@ export function DashboardClient({
                 ? "Content overview"
                 : view === "posts"
                   ? "Blog posts"
-                  : "PDF library"}
+                  : view === "documents"
+                    ? "PDF library"
+                    : "Client relationships"}
             </h1>
           </div>
           <div className="user-chip">
@@ -458,7 +469,7 @@ export function DashboardClient({
               )}
             </div>
           </section>
-        ) : (
+        ) : view === "documents" ? (
           <section className="documents-layout">
             <form className="upload-card" onSubmit={uploadPdf}>
               <div>
@@ -572,6 +583,8 @@ export function DashboardClient({
               )}
             </div>
           </section>
+        ) : (
+          <ClientsPanel notify={notify} />
         )}
       </main>
 
