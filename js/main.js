@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   initHeaderScroll();
+  initLoginNavigation();
   initMobileMenu();
   initScrollReveal(prefersReduced);
   initCounters();
@@ -31,6 +32,41 @@ document.addEventListener('DOMContentLoaded', () => {
   initNewsletterForm();
   setYear();
 });
+
+/* ---------- Client + admin login navigation ---------- */
+function initLoginNavigation() {
+  const dashboardUrl = 'https://positive-legacy-content-manager.innova10.chatgpt.site/admin';
+  const desktopNav = document.querySelector('.site-header nav');
+
+  if (desktopNav && !desktopNav.querySelector('[data-login-menu]')) {
+    desktopNav.insertAdjacentHTML('beforeend', `
+      <div class="dropdown relative" data-login-menu>
+        <button class="nav-link login-nav-trigger flex items-center gap-1" aria-haspopup="true">
+          LOGIN
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-panel login-dropdown-panel absolute right-0 top-full pt-5">
+          <div class="w-56 bg-white rounded-xl shadow-2xl border border-gray-100 p-3">
+            <a href="client-login.html" class="dropdown-item login-option block py-2 px-2 text-sm font-semibold text-navy-900">
+              <span>Client Login</span><small>Portal access</small>
+            </a>
+            <a href="${dashboardUrl}" class="dropdown-item login-option block py-2 px-2 text-sm font-semibold text-navy-900">
+              <span>Admin Login</span><small>Content dashboard</small>
+            </a>
+          </div>
+        </div>
+      </div>`);
+  }
+
+  const mobileNav = document.querySelector('#mobilePanel nav');
+  if (mobileNav && !mobileNav.querySelector('[data-mobile-login]')) {
+    mobileNav.insertAdjacentHTML('beforeend', `
+      <div class="mobile-login-grid" data-mobile-login>
+        <a href="client-login.html" class="mobile-login-link">Client Login</a>
+        <a href="${dashboardUrl}" class="mobile-login-link admin">Admin Login</a>
+      </div>`);
+  }
+}
 
 /* ---------- Header shadow / shrink on scroll ---------- */
 function initHeaderScroll() {

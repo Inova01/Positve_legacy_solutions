@@ -154,6 +154,32 @@ h1, h2, h3, h4, .font-display {
 .dropdown-item:hover { color: var(--gold-500); padding-left: 1.1rem; }
 .dropdown-item:hover::before { width: .7rem; }
 
+.login-dropdown-panel { left: auto; transform: translateY(10px); }
+.dropdown:hover .login-dropdown-panel,
+.dropdown:focus-within .login-dropdown-panel { transform: translateY(0); }
+.login-option { display: grid; gap: .12rem; }
+.login-option small {
+  color: var(--gray-600);
+  font-size: .65rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+.mobile-login-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; padding-top: 1rem; }
+.mobile-login-link {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--navy-900);
+  border-radius: 999px;
+  color: var(--navy-900);
+  font-size: .73rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+.mobile-login-link.admin { border-color: var(--gold-500); background: var(--gold-500); }
+
 /* ---------- Mobile off-canvas menu ---------- */
 .mobile-panel {
   transform: translateX(100%);
