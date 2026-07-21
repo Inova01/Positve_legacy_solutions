@@ -26,8 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordions();
   initBackToTop();
   initContactForm();
-  initTeamSlider();
-  initTeamShare();
   initClientStories(prefersReduced);
   initBlog();
   initNewsletterForm();
@@ -287,46 +285,6 @@ function initContactForm() {
 
   form.querySelectorAll('[data-required]').forEach(f => {
     f.addEventListener('blur', () => validate());
-  });
-}
-
-/* ---------- Team slider ---------- */
-function initTeamSlider() {
-  const track = document.getElementById('teamTrack');
-  if (!track) return;
-  const total = track.children.length;
-  let idx = 0;
-  const perView = () => (window.innerWidth >= 1024 ? 4 : window.innerWidth >= 640 ? 2 : 1);
-  const go = (n) => {
-    const pv = perView();
-    const max = Math.max(0, total - pv);
-    idx = Math.min(Math.max(n, 0), max);
-    track.style.transform = `translateX(-${idx * (100 / pv)}%)`;
-  };
-  document.getElementById('teamNext')?.addEventListener('click', () => {
-    const pv = perView();
-    go(idx + 1 > total - pv ? 0 : idx + 1);
-  });
-  document.getElementById('teamPrev')?.addEventListener('click', () => go(idx - 1));
-  window.addEventListener('resize', () => go(idx));
-  go(0);
-}
-
-/* ---------- Team share expand (tap support) ---------- */
-function initTeamShare() {
-  document.querySelectorAll('.team-share-toggle').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const share = btn.closest('.team-share');
-      const isOpen = share.classList.contains('open');
-      document.querySelectorAll('.team-share.open').forEach(s => s.classList.remove('open'));
-      if (!isOpen) share.classList.add('open');
-    });
-  });
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.team-share')) {
-      document.querySelectorAll('.team-share.open').forEach(s => s.classList.remove('open'));
-    }
   });
 }
 
