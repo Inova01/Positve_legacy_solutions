@@ -1,4 +1,3 @@
-import { getAdminUser } from "../../../admin-auth";
 import {
   adminSessionCookie,
   createAdminSessionToken,
@@ -7,10 +6,6 @@ import {
 } from "../../../admin-password";
 
 export async function POST(request: Request) {
-  const user = await getAdminUser();
-  if (!user) {
-    return Response.json({ error: "Sign in with ChatGPT first." }, { status: 401 });
-  }
   if (!isAdminPasswordConfigured()) {
     return Response.json({ error: "Admin password is not configured." }, { status: 503 });
   }
@@ -21,7 +16,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Incorrect password." }, { status: 401 });
   }
 
-  const token = await createAdminSessionToken(user.email);
+  const token = await createAdminSessionToken();
   return Response.json(
     { ok: true },
     { headers: { "Set-Cookie": adminSessionCookie(token), "Cache-Control": "no-store" } },

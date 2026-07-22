@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 
-export function AdminPasswordLogin({ email }: { email: string }) {
+export function AdminPasswordLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -49,7 +49,6 @@ export function AdminPasswordLogin({ email }: { email: string }) {
       <button className="primary-button" type="submit" disabled={submitting}>
         {submitting ? "Checking…" : "Open dashboard"}
       </button>
-      <p className="login-identity">Signed in as {email}</p>
     </form>
   );
 }

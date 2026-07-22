@@ -20,15 +20,15 @@ export async function verifyAdminPassword(candidate: string): Promise<boolean> {
   return constantTimeEqual(candidate, password);
 }
 
-export async function hasAdminPasswordSession(email: string): Promise<boolean> {
+export async function hasAdminPasswordSession(): Promise<boolean> {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
-  return token ? verifySessionToken(token, email) : false;
+  return token ? verifySessionToken(token) : false;
 }
 
-export async function createAdminSessionToken(email: string): Promise<string> {
+export async function createAdminSessionToken(): Promise<string> {
   const expiresAt = Math.floor(Date.now() / 1000) + SESSION_SECONDS;
-  const payload = `${email.toLowerCase()}.${expiresAt}`;
+  const payload = `admin.${expiresAt}`;
   const signature = await sign(payload);
   return `${base64UrlEncode(payload)}.${signature}`;
 }
@@ -41,7 +41,7 @@ export function clearAdminSessionCookie(): string {
   return `${COOKIE_NAME}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`;
 }
 
-async function verifySessionToken(token: string, email: string): Promise<boolean> {
+async function verifySessionToken(token: string): Promise<boolean> {
   const [encodedPayload, signature] = token.split(".");
   if (!encodedPayload || !signature) return false;
 
@@ -50,9 +50,9 @@ async function verifySessionToken(token: string, email: string): Promise<boolean
 
   const separator = payload.lastIndexOf(".");
   if (separator < 1) return false;
-  const tokenEmail = payload.slice(0, separator);
+  const subject = payload.slice(0, separator);
   const expiresAt = Number(payload.slice(separator + 1));
-  if (tokenEmail !== email.toLowerCase() || !Number.isFinite(expiresAt)) return false;
+  if (subject !== "admin" || !Number.isFinite(expiresAt)) return false;
   if (expiresAt <= Math.floor(Date.now() / 1000)) return false;
 
   const expected = await sign(payload);
