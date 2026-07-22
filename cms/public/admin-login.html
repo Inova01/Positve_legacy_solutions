@@ -38,11 +38,18 @@
       <p class="eyebrow mb-3">Admin portal</p>
       <h1 class="font-display font-bold text-4xl md:text-5xl text-white">Manage blog posts, PDFs and client messages.</h1>
       <p class="mt-6 text-gray-dark text-lg leading-relaxed">This private area is for Positive Legacy Solutions administrators only.</p>
-      <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="https://positive-legacy-content-manager.innova10.chatgpt.site/admin/login" class="btn-pill">Open Admin Dashboard <span class="arrow">-&gt;</span></a>
-        <a href="client-login.html" class="btn-ghost">Client Login</a>
-      </div>
-      <p class="mt-8 text-sm text-gray-dark">Use the dashboard password I created for you when the secure dashboard opens.</p>
+      <form class="mt-9 text-left space-y-4" action="#" method="post">
+        <label class="block">
+          <span class="block text-sm font-semibold text-gray-dark mb-2">Email</span>
+          <input type="email" name="email" autocomplete="username" required class="w-full rounded-xl border border-white/10 bg-white/95 px-4 py-3 text-navy-900 outline-none focus:border-gold-500" placeholder="admin@positivelegacysolutions.com" />
+        </label>
+        <label class="block">
+          <span class="block text-sm font-semibold text-gray-dark mb-2">Password</span>
+          <input type="password" name="password" autocomplete="current-password" required class="w-full rounded-xl border border-white/10 bg-white/95 px-4 py-3 text-navy-900 outline-none focus:border-gold-500" placeholder="Enter password" />
+        </label>
+        <button type="submit" class="btn-pill w-full justify-center">Login <span class="arrow">-&gt;</span></button>
+      </form>
+      <p class="mt-8 text-sm text-gray-dark">Admin access is private. Contact the site manager if you need dashboard permission.</p>
     </section>
   </main>
 </body>

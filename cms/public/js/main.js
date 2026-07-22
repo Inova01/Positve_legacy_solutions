@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ---------- Client + admin login navigation ---------- */
 function initLoginNavigation() {
-  const dashboardUrl = 'admin-login.html';
+  const dashboardUrl = 'https://positivelegacysolutions.com/admin-login';
   const desktopNav = document.querySelector('.site-header nav');
 
   if (desktopNav && !desktopNav.querySelector('[data-login-menu]')) {
