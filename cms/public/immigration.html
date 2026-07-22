@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Immigration Document Services | Positive Legacy Solutions LLC — Jacksonville, FL</title>
+  <meta name="description" content="Bilingual immigration document preparation and support in Jacksonville, FL — family petitions, adjustment of status, work permits, citizenship prep and translations." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Immigration Document Services | Positive Legacy Solutions LLC — Jacksonville, FL" />
+  <meta property="og:description" content="Bilingual immigration document preparation and support in Jacksonville, FL — family petitions, adjustment of status, work permits, citizenship prep and translations." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1569098644584-210bcd375b59?auto=format&fit=crop&w=1200&q=80" />
+  <meta property="og:url" content="https://positivelegacysolutions.pages.dev/immigration.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body>
+
+<!-- ===================== HEADER (identical on all pages) ===================== -->
+<header class="site-header sticky top-0 z-50 bg-white py-4">
+  <div class="max-w-7xl mx-auto px-5 flex items-center justify-between gap-4">
+    <a href="index.html" class="flex items-center gap-3 shrink-0">
+      <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-navy-900">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 L17 7"/><path d="M9 7 h8 v8"/></svg>
+      </span>
+      <span class="leading-tight">
+        <span class="block font-display font-bold text-xl text-navy-900">PLS</span>
+        <span class="block text-[10px] tracking-widest uppercase text-gray-body">Positive Legacy Solutions</span>
+      </span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8">
+      <a href="index.html" class="nav-link">HOME</a>
+      <div class="dropdown relative">
+        <button class="nav-link flex items-center gap-1" aria-haspopup="true">SERVICES
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-panel absolute left-1/2 -translate-x-1/2 top-full pt-5">
+          <div class="w-60 bg-white rounded-xl shadow-2xl border border-gray-100 p-3">
+            <a href="insurance.html" class="dropdown-item block py-2 px-2 text-sm font-semibold text-navy-900">Insurance</a>
+            <a href="real-estate.html" class="dropdown-item block py-2 px-2 text-sm font-semibold text-navy-900">Real Estate</a>
+            <a href="tax-services.html" class="dropdown-item block py-2 px-2 text-sm font-semibold text-navy-900">Tax Services</a>
+            <a href="immigration.html" class="dropdown-item block py-2 px-2 text-sm font-semibold text-navy-900">Immigration</a>
+            <a href="contact.html" class="dropdown-item block py-2 px-2 text-sm font-semibold text-navy-900">Notary &amp; Translation</a>
+          </div>
+        </div>
+      </div>
+      <a href="about.html" class="nav-link">ABOUT</a>
+      <a href="blog.html" class="nav-link">BLOG</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">CONTACT</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="tel:+19048846854" aria-label="Call PLS" class="hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-navy-900 transition-colors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <a href="contact.html" class="btn-pill hidden sm:inline-flex">GET IN TOUCH <span class="arrow">→</span></a>
+      <button id="menuOpen" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg bg-navy-900 text-white" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile off-canvas -->
+<div id="mobileOverlay" class="mobile-overlay fixed inset-0 z-[70] bg-black/50"></div>
+<aside id="mobilePanel" class="mobile-panel fixed top-0 right-0 z-[80] h-full w-[86%] max-w-sm bg-white shadow-2xl overflow-y-auto">
+  <div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+      <span class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-navy-900">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 L17 7"/><path d="M9 7 h8 v8"/></svg>
+        </span>
+        <span class="font-display font-bold text-lg text-navy-900">PLS</span>
+      </span>
+      <button id="menuClose" class="w-10 h-10 rounded-lg bg-cream-50 text-navy-900 inline-flex items-center justify-center" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="text-sm text-gray-body mb-6">Insurance, Real Estate, Tax &amp; Immigration — all under one roof in Jacksonville, FL.</p>
+    <nav class="space-y-1 border-t border-gray-100 pt-4">
+      <a href="index.html" class="block py-3 font-semibold text-navy-900 border-b border-gray-100">Home</a>
+      <div class="border-b border-gray-100">
+        <button id="mobileServicesToggle" class="w-full flex items-center justify-between py-3 font-semibold text-navy-900">
+          Services <span class="acc-icon text-gold-500 text-xl leading-none">+</span>
+        </button>
+        <div id="mobileServicesBody" class="mobile-accordion-body">
+          <div class="pb-3 grid grid-cols-2 gap-2">
+            <a href="insurance.html" class="block p-3 rounded-lg bg-cream-50 text-sm font-semibold text-navy-900">Insurance</a>
+            <a href="real-estate.html" class="block p-3 rounded-lg bg-cream-50 text-sm font-semibold text-navy-900">Real Estate</a>
+            <a href="tax-services.html" class="block p-3 rounded-lg bg-cream-50 text-sm font-semibold text-navy-900">Tax Services</a>
+            <a href="immigration.html" class="block p-3 rounded-lg bg-cream-50 text-sm font-semibold text-navy-900">Immigration</a>
+            <a href="contact.html" class="block p-3 rounded-lg bg-cream-50 text-sm font-semibold text-navy-900 col-span-2">Notary &amp; Translation</a>
+          </div>
+        </div>
+      </div>
+      <a href="about.html" class="block py-3 font-semibold text-navy-900 border-b border-gray-100">About</a>
+      <a href="blog.html" class="block py-3 font-semibold text-navy-900 border-b border-gray-100">Blog</a>
+      <a href="faq.html" class="block py-3 font-semibold text-navy-900 border-b border-gray-100">FAQ</a>
+      <a href="contact.html" class="block py-3 font-semibold text-navy-900 border-b border-gray-100">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn-pill w-full justify-center mt-6">GET IN TOUCH <span class="arrow">→</span></a>
+    <a href="tel:+19048846854" class="block text-center mt-4 font-semibold text-navy-900">(904) 884-6854</a>
+  </div>
+</aside>
+<!-- =================== END HEADER =================== -->
+
+<main>
+  <section class="relative py-28 md:py-36 bg-navy-900 bg-cover bg-center bg-blend-overlay" style="background-image:linear-gradient(rgba(11,29,58,.86),rgba(11,29,58,.86)),url('https://images.unsplash.com/photo-1569098644584-210bcd375b59?auto=format&fit=crop&w=1920&q=80')">
+    <div class="max-w-7xl mx-auto px-5 reveal">
+      <nav class="breadcrumb text-sm text-gray-dark mb-4"><a href="index.html" class="hover:text-gold-400">Home</a> / <a href="index.html#services" class="hover:text-gold-400">Services</a> / <span class="text-gold-500">Immigration</span></nav>
+      <p class="eyebrow mb-3">Immigration Services</p>
+      <h1 class="font-display font-bold text-4xl md:text-5xl text-white max-w-3xl">Support On Your Journey to a New Beginning</h1>
+      <p class="text-gray-dark mt-5 max-w-xl">Bilingual immigration document preparation and support in Jacksonville, FL — family petitions, adjustment of status, work permits, citizenship prep and translations.</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-5 grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal">
+        <p class="eyebrow mb-3">Overview</p>
+        <h2 class="font-display font-bold text-3xl text-navy-900 mb-5">Support On Your Journey to a New Beginning</h2>
+        <p class="text-gray-body leading-relaxed mb-4">Immigration paperwork can feel overwhelming. Positive Legacy Solutions helps you gather, complete and organize the right forms accurately — so you can move forward with confidence.</p><p class="text-gray-body leading-relaxed">We serve our community with patience and care in English, Français and Kreyòl.</p>
+      </div>
+      <div class="relative reveal" data-delay="120">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" alt="Family reunited, holding a passport and documents" class="rounded-2xl w-full h-[420px] object-cover" />
+        <div class="absolute -bottom-6 -left-4 md:left-6 bg-gold-500 text-navy-900 rounded-2xl p-6 w-56 shadow-2xl">
+          <div class="font-display font-bold text-4xl">180+</div>
+          <p class="text-sm font-semibold mt-1">Cases Supported</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we offer -->
+  <section class="bg-cream-50 py-20">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="mb-10 reveal">
+        <p class="eyebrow mb-3">What We Offer</p>
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-navy-900">Services Tailored to You</h2>
+      </div>
+      <ul class="grid sm:grid-cols-2 gap-x-12 gap-y-5 reveal">
+        <li class="flex items-start gap-3"><svg width="22" height="22" class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-gray-body"><strong>Family Petitions</strong> — help reuniting with loved ones.</span></li>
+        <li class="flex items-start gap-3"><svg width="22" height="22" class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-gray-body"><strong>Adjustment of Status</strong> — application preparation support.</span></li>
+        <li class="flex items-start gap-3"><svg width="22" height="22" class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-gray-body"><strong>Work Permits</strong> — employment authorization assistance.</span></li>
+        <li class="flex items-start gap-3"><svg width="22" height="22" class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-gray-body"><strong>Citizenship Prep</strong> — naturalization form &amp; study support.</span></li>
+        <li class="flex items-start gap-3"><svg width="22" height="22" class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-gray-body"><strong>Document Translation</strong> — certified English • Français • Kreyòl.</span></li>
+        <li class="flex items-start gap-3"><svg width="22" height="22" class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-gray-body"><strong>Form Assistance</strong> — accurate completion of USCIS forms.</span></li>
+      </ul>
+      <div class="mt-8 flex items-start gap-3 bg-navy-900 text-gray-dark rounded-xl p-5 text-sm">
+        <svg width="22" height="22" class="text-gold-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <span>We provide document preparation and support services. We are not attorneys and do not provide legal advice.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mini process -->
+  <section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="mb-10 reveal">
+        <p class="eyebrow mb-3">How It Works</p>
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-navy-900">Three Simple Steps</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-10">
+      <div class="reveal" data-delay="0">
+        <span class="process-num">01</span>
+        <h4 class="text-lg font-bold text-navy-900 mt-3 mb-2">Consultation</h4>
+        <p class="text-sm text-gray-body">We review your situation and identify the right forms.</p>
+      </div>
+      <div class="reveal" data-delay="100">
+        <span class="process-num">02</span>
+        <h4 class="text-lg font-bold text-navy-900 mt-3 mb-2">Prepare Documents</h4>
+        <p class="text-sm text-gray-body">We help complete and organize your paperwork accurately.</p>
+      </div>
+      <div class="reveal" data-delay="200">
+        <span class="process-num">03</span>
+        <h4 class="text-lg font-bold text-navy-900 mt-3 mb-2">Submit & Follow Up</h4>
+        <p class="text-sm text-gray-body">We help you file and keep your documents in order.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-cream-50 py-20">
+    <div class="max-w-3xl mx-auto px-5">
+      <div class="mb-10 reveal text-center">
+        <p class="eyebrow mb-3">Questions</p>
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-navy-900">Frequently Asked Questions</h2>
+      </div>
+      <div class="space-y-4 reveal" data-accordion>
+      <div class="acc-item bg-cream-50 rounded-xl overflow-hidden open">
+        <button class="acc-head w-full flex items-center justify-between gap-4 text-left p-5 font-semibold text-navy-900">
+          <span>Are you attorneys?</span><span class="acc-icon text-gold-500 text-2xl leading-none">+</span>
+        </button>
+        <div class="acc-body"><p class="px-5 pb-5 text-sm text-gray-body">No. We provide document preparation and support services and do not provide legal advice. For legal questions we can refer you to a licensed attorney.</p></div>
+      </div>
+      <div class="acc-item bg-cream-50 rounded-xl overflow-hidden">
+        <button class="acc-head w-full flex items-center justify-between gap-4 text-left p-5 font-semibold text-navy-900">
+          <span>Which forms can you help with?</span><span class="acc-icon text-gold-500 text-2xl leading-none">+</span>
+        </button>
+        <div class="acc-body"><p class="px-5 pb-5 text-sm text-gray-body">We assist with common USCIS forms including family petitions, adjustment of status, work permits and citizenship applications.</p></div>
+      </div>
+      <div class="acc-item bg-cream-50 rounded-xl overflow-hidden">
+        <button class="acc-head w-full flex items-center justify-between gap-4 text-left p-5 font-semibold text-navy-900">
+          <span>Do you offer certified translations?</span><span class="acc-icon text-gold-500 text-2xl leading-none">+</span>
+        </button>
+        <div class="acc-body"><p class="px-5 pb-5 text-sm text-gray-body">Yes — we provide accurate document translation between English, Français and Kreyòl for your filings.</p></div>
+      </div>
+      <div class="acc-item bg-cream-50 rounded-xl overflow-hidden">
+        <button class="acc-head w-full flex items-center justify-between gap-4 text-left p-5 font-semibold text-navy-900">
+          <span>How long does the process take?</span><span class="acc-icon text-gold-500 text-2xl leading-none">+</span>
+        </button>
+        <div class="acc-body"><p class="px-5 pb-5 text-sm text-gray-body">Timelines are set by USCIS and vary by case type. We help you prepare everything correctly to avoid delays on your end.</p></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-navy-900 py-20">
+    <div class="max-w-4xl mx-auto px-5 text-center reveal">
+      <h2 class="font-display font-bold text-3xl md:text-5xl text-gold-500 mb-6">Ready to Start Your Legacy?</h2>
+      <p class="text-gray-dark mb-8">Call us today — we'll be glad to help in English, Français or Kreyòl.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-10">
+        <a href="tel:+19048846854" class="text-white font-display font-bold text-2xl md:text-3xl hover:text-gold-400 transition-colors">(904) 884-6854</a>
+        <span class="hidden sm:block w-px h-8 bg-white/20"></span>
+        <a href="tel:+19044052746" class="text-white font-display font-bold text-2xl md:text-3xl hover:text-gold-400 transition-colors">(904) 405-2746</a>
+      </div>
+      <a href="contact.html" class="btn-pill">Book a Consultation <span class="arrow">→</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOOTER (identical on all pages) ===================== -->
+<footer class="relative bg-navy-900 pt-16 pb-8 overflow-hidden">
+  <svg class="footer-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 L17 7"/><path d="M9 7 h8 v8"/></svg>
+  <div class="relative max-w-7xl mx-auto px-5">
+    <div class="grid lg:grid-cols-12 gap-10 pb-12">
+      <!-- Col 1 -->
+      <div class="lg:col-span-4 lg:border-r lg:border-white/10 lg:pr-10">
+        <a href="index.html" class="flex items-center gap-3 mb-6">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-white/5 border border-gold-500/40">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 L17 7"/><path d="M9 7 h8 v8"/></svg>
+          </span>
+          <span class="font-display font-bold text-xl text-white">PLS</span>
+        </a>
+        <p class="eyebrow mb-2">24/7 Call Us</p>
+        <a href="tel:+19048846854" class="block font-display font-bold text-2xl text-white hover:text-gold-400 transition-colors">(904) 884-6854</a>
+        <a href="tel:+19044052746" class="block font-display font-bold text-xl text-white/90 hover:text-gold-400 transition-colors mt-1">(904) 405-2746</a>
+        <div class="my-5 h-px bg-white/10"></div>
+        <p class="eyebrow mb-2">Our Location</p>
+        <p class="text-sm text-gray-dark max-w-xs">4849 French Street, Jacksonville, FL 32205, United States of America</p>
+      </div>
+      <!-- Col 2: Services -->
+      <div class="lg:col-span-3">
+        <div class="flex items-center gap-2 mb-5"><span class="inline-block w-6 h-1 rounded-full bg-gold-500"></span><h4 class="text-white font-bold uppercase tracking-widest text-xs">Our Services</h4></div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="insurance.html" class="footer-link">Insurance</a></li>
+          <li><a href="real-estate.html" class="footer-link">Real Estate</a></li>
+          <li><a href="tax-services.html" class="footer-link">Tax Services</a></li>
+          <li><a href="immigration.html" class="footer-link">Immigration</a></li>
+          <li><a href="contact.html" class="footer-link">Notary &amp; Translation</a></li>
+        </ul>
+      </div>
+      <!-- Col 3: Quicklinks -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2 mb-5"><span class="inline-block w-6 h-1 rounded-full bg-gold-500"></span><h4 class="text-white font-bold uppercase tracking-widest text-xs">Quicklinks</h4></div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="about.html" class="footer-link">About Us</a></li>
+          <li><a href="blog.html" class="footer-link">Blog</a></li>
+          <li><a href="faq.html" class="footer-link">FAQ</a></li>
+          <li><a href="contact.html" class="footer-link">Contact</a></li>
+          <li><a href="#" class="footer-link">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <!-- Col 4: Get Updates -->
+      <div class="lg:col-span-3">
+        <div class="flex items-center gap-2 mb-5"><span class="inline-block w-6 h-1 rounded-full bg-gold-500"></span><h4 class="text-white font-bold uppercase tracking-widest text-xs">Get Updates</h4></div>
+        <p class="text-sm text-gray-dark mb-4">Sign up for updates from PLS — no spam, just useful news.</p>
+        <form id="newsletterForm" class="relative" novalidate>
+          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+          <input type="hidden" name="subject" value="Newsletter signup" />
+          <input type="hidden" name="from_name" value="PLS Newsletter" />
+          <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" />
+          <input type="email" name="email" required placeholder="Your email address" class="w-full rounded-full bg-white/10 border border-white/15 text-white placeholder-white/40 py-3 pl-5 pr-14 text-sm focus:outline-none focus:border-gold-500 transition-colors" />
+          <button type="submit" aria-label="Subscribe" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-gold-500 text-navy-900 flex items-center justify-center hover:bg-gold-400 transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+        <p id="newsletterStatus" class="mt-2 text-xs"></p>
+        <div class="flex items-center gap-3 mt-5 text-sm text-gray-dark">
+          <svg width="16" height="16" class="shrink-0 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+          <a href="mailto:positivelegacysolutions@gmail.com" class="hover:text-gold-500 transition-colors break-all">positivelegacysolutions@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-gray-dark">&copy; <span data-year>2026</span> Positive Legacy Solutions LLC. All rights reserved.</p>
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="#" aria-label="Facebook" class="footer-social"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.3c0-.8.2-1.4 1.4-1.4h1.4V5.3c-.7-.1-1.4-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.3H8.3V14h2.3v7z"/></svg>Facebook</a>
+        <a href="#" aria-label="Instagram" class="footer-social"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+        <a href="#" aria-label="WhatsApp" class="footer-social"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.7-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.5v-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7 1.4 2.4 3.2 3.2 4.8 3.7 1.3.3 1.6.2 2 .2.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1z"/></svg>WhatsApp</a>
+        <a href="#" aria-label="X" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.2 8.3L23 22h-6.6l-5.2-6.8L5.3 22H2.2l7.7-8.9L2 2h6.8l4.7 6.2L18.9 2zm-2.3 18h1.7L7.5 3.8H5.7L16.6 20z"/></svg>X</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<!-- =================== END FOOTER =================== -->
+
+<script src="js/main.js"></script>
+</body>
+</html>
