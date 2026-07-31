@@ -11,6 +11,7 @@
 /* ---- Single-edit business constants ---- */
 const OWNER_NAME = "Etienne"; // TODO: confirm full spelling — edit here only
 const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // TODO: replace
+const CMS_API_BASE = "https://positive-legacy-content-manager.innova10.chatgpt.site";
 
 document.addEventListener('DOMContentLoaded', () => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -380,10 +381,19 @@ function initClientStories(prefersReduced) {
   render(0); start();
 }
 
-/* ---------- Blog search + category filter ---------- */
+/* ---------- Live dashboard blog feed + search/category filter ---------- */
 function initBlog() {
-  const cards = document.querySelectorAll('.post-card');
-  if (!cards.length) return;
+  const list = document.getElementById('blogPosts');
+  const article = document.getElementById('blogPostArticle');
+  const hasBlogPage = list || article || document.querySelector('.post-card');
+  if (!hasBlogPage) return;
+
+  const applyFilters = initBlogFilters();
+  if (list) loadDashboardPostList(list, applyFilters);
+  if (article) loadDashboardPostArticle(article);
+}
+
+function initBlogFilters() {
   const searchForm = document.getElementById('blogSearchForm');
   const search = document.getElementById('blogSearch');
   const catLinks = document.querySelectorAll('[data-cat]');
@@ -391,6 +401,7 @@ function initBlog() {
   let activeCat = 'all';
 
   const apply = () => {
+    const cards = document.querySelectorAll('.post-card');
     const q = (search?.value || '').trim().toLowerCase();
     let shown = 0;
     cards.forEach(c => {
@@ -412,6 +423,171 @@ function initBlog() {
     l.classList.add('text-gold-500', 'font-bold');
     apply();
   }));
+
+  return apply;
+}
+
+async function fetchDashboardPosts(params = '') {
+  const response = await fetch(`${CMS_API_BASE}/api/posts${params}`, {
+    cache: 'no-store',
+    headers: { Accept: 'application/json' }
+  });
+  if (!response.ok) throw new Error('Unable to load dashboard posts');
+  return response.json();
+}
+
+async function loadDashboardPostList(list, applyFilters) {
+  try {
+    const payload = await fetchDashboardPosts('?limit=50');
+    const posts = Array.isArray(payload.posts) ? payload.posts : [];
+    if (!posts.length) return;
+    list.innerHTML = posts.map(renderPostCard).join('');
+    document.querySelector('[data-blog-pagination]')?.classList.add('hidden');
+    applyFilters();
+  } catch (error) {
+    console.warn('Using fallback blog posts:', error);
+  }
+}
+
+async function loadDashboardPostArticle(article) {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+    const payload = slug
+      ? await fetchDashboardPosts(`?slug=${encodeURIComponent(slug)}`)
+      : await fetchDashboardPosts('?limit=1');
+    const post = payload.post || (Array.isArray(payload.posts) ? payload.posts[0] : null);
+    if (!post) return;
+    renderSinglePost(article, post);
+  } catch (error) {
+    console.warn('Using fallback article:', error);
+  }
+}
+
+function renderPostCard(post) {
+  const image = post.featuredImageUrl || fallbackBlogImage(post.category);
+  const category = post.category || 'Community';
+  const title = post.title || 'Untitled post';
+  const excerpt = post.excerpt || '';
+  const date = formatBlogDate(post.publishedAt || post.updatedAt || post.createdAt);
+  const author = post.author || 'Positive Legacy Solutions';
+  const url = `blog-single.html?slug=${encodeURIComponent(post.slug)}`;
+
+  return `
+    <article class="post-card group-zoom reveal" data-title="${escapeHtml(title)}" data-category="${escapeHtml(category.toLowerCase())}">
+      <a href="${url}" class="blog-img block rounded-2xl mb-6"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" class="w-full h-72 object-cover" /></a>
+      <div class="flex items-center gap-3 text-xs uppercase tracking-widest text-gray-body mb-3">
+        <span>${escapeHtml(date)}</span><span class="text-gold-500">•</span><span>${escapeHtml(author)}</span><span class="text-gold-500">•</span><span class="text-gold-500 font-semibold">${escapeHtml(category)}</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-navy-900 mb-3 leading-snug"><a href="${url}" class="hover:text-gold-500 transition-colors">${escapeHtml(title)}</a></h2>
+      <p class="text-gray-body mb-6 max-w-2xl">${escapeHtml(excerpt)}</p>
+      <div class="flex items-center justify-between gap-4">
+        <a href="${url}" class="btn-ghost" style="color:var(--navy-900);border-color:var(--navy-900);padding:.6rem 1.3rem;">Read More <span class="arrow">↗</span></a>
+      </div>
+    </article>`;
+}
+
+function renderSinglePost(article, post) {
+  const title = post.title || 'Untitled post';
+  const category = post.category || 'Community';
+  const author = post.author || 'Positive Legacy Solutions';
+  const date = formatBlogDate(post.publishedAt || post.updatedAt || post.createdAt);
+  const image = post.featuredImageUrl || fallbackBlogImage(category);
+  const tags = Array.isArray(post.tags) ? post.tags : [];
+
+  document.title = `${title} | Positive Legacy Solutions LLC`;
+  const titleNode = document.getElementById('postTitle');
+  const categoryNode = document.getElementById('postCategory');
+  const metaNode = document.getElementById('postMeta');
+  if (titleNode) titleNode.textContent = title;
+  if (categoryNode) categoryNode.textContent = category;
+  if (metaNode) metaNode.textContent = `Published ${date} · By ${author}`;
+
+  article.innerHTML = `
+    <div class="blog-img group-zoom rounded-2xl mb-8"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" class="w-full h-80 object-cover" /></div>
+    <div class="flex items-center gap-3 text-xs uppercase tracking-widest text-gray-body mb-8">
+      <span>${escapeHtml(date)}</span><span class="text-gold-500">•</span><span>${escapeHtml(author)}</span><span class="text-gold-500">•</span><span class="text-gold-500 font-semibold">${escapeHtml(category)}</span>
+    </div>
+    <div class="dashboard-article">${markdownToArticleHtml(post.content || post.excerpt || '')}</div>
+    ${tags.length ? `<div class="flex flex-wrap items-center gap-2 py-6 border-t border-gray-100 mt-8"><span class="text-sm font-semibold text-navy-900 mr-2">Tags:</span>${tags.map(tag => `<a href="blog.html" class="tag-pill">${escapeHtml(tag)}</a>`).join('')}</div>` : ''}
+  `;
+}
+
+function markdownToArticleHtml(markdown) {
+  const lines = String(markdown).split(/\r?\n/);
+  const html = [];
+  let listOpen = false;
+  let paragraph = [];
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    html.push(`<p class="text-gray-body leading-relaxed mb-5">${paragraph.join(' ')}</p>`);
+    paragraph = [];
+  };
+  const closeList = () => {
+    if (!listOpen) return;
+    html.push('</ul>');
+    listOpen = false;
+  };
+
+  lines.forEach((line) => {
+    const value = line.trim();
+    if (!value) {
+      flushParagraph();
+      closeList();
+      return;
+    }
+    if (value.startsWith('### ')) {
+      flushParagraph();
+      closeList();
+      html.push(`<h3 class="font-display font-bold text-xl text-navy-900 mt-8 mb-3">${escapeHtml(value.slice(4))}</h3>`);
+      return;
+    }
+    if (value.startsWith('## ')) {
+      flushParagraph();
+      closeList();
+      html.push(`<h2 class="font-display font-bold text-2xl text-navy-900 mt-10 mb-4">${escapeHtml(value.slice(3))}</h2>`);
+      return;
+    }
+    if (/^[-*]\s+/.test(value)) {
+      flushParagraph();
+      if (!listOpen) {
+        html.push('<ul class="space-y-2 mb-6 list-disc pl-6 text-gray-body">');
+        listOpen = true;
+      }
+      html.push(`<li>${escapeHtml(value.replace(/^[-*]\s+/, ''))}</li>`);
+      return;
+    }
+    paragraph.push(escapeHtml(value));
+  });
+
+  flushParagraph();
+  closeList();
+  return html.join('');
+}
+
+function fallbackBlogImage(category = '') {
+  const key = category.toLowerCase();
+  if (key.includes('real')) return 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1000&q=80';
+  if (key.includes('immigration')) return 'https://images.unsplash.com/photo-1569098644584-210bcd375b59?auto=format&fit=crop&w=1000&q=80';
+  if (key.includes('insurance')) return 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1000&q=80';
+  return 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=80';
+}
+
+function formatBlogDate(value) {
+  if (!value) return 'Recently';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+}
+
+function escapeHtml(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 /* ---------- Newsletter form (Web3Forms) ---------- */

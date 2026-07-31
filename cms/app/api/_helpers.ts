@@ -1,10 +1,10 @@
 import type { BlogPost, CmsDocument, PostStatus } from "../cms-types";
 
 export const PUBLIC_HEADERS = {
-  "Access-Control-Allow-Origin": "https://inova01.github.io",
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
-  "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
+  "Cache-Control": "public, max-age=15, stale-while-revalidate=60",
 };
 
 export type PostRow = {
